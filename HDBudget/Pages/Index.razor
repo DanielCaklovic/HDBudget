@@ -7,5 +7,19 @@
 </div>
 
 Welcome to your new app.
+<h1>API: @WebApuUrl</h1>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@inject HttpClient Http
+
+@code {
+
+    private string WebApuUrl = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Http.GetFromJsonAsync<Settings>("appsettings.json");
+        WebApuUrl = response.ApiUrl;
+    }
+}
