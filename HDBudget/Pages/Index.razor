@@ -1,25 +1,11 @@
 ﻿@page "/"
+@attribute [Authorize]
+@inject IAccountService AccountService
 
-<h1>Hello, via CI!</h1>
-
-<div class="alert alert-warning" role="alert">
-    Before authentication will function correctly, you must configure your provider details in <code>Program.cs</code>
+<div class="p-4">
+    <div class="container">
+        <h1>Hi @AccountService.User.FirstName!</h1>
+        <p>You're logged in with Blazor WebAssembly!!</p>
+        <p><NavLink href="users">Manage Users</NavLink></p>
+    </div>
 </div>
-
-Welcome to your new app.
-<h1>API: @WebApuUrl</h1>
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
-@inject HttpClient Http
-
-@code {
-
-    private string WebApuUrl = "";
-
-    protected override async Task OnInitializedAsync()
-    {
-        var response = await Http.GetFromJsonAsync<Settings>("appsettings.json");
-        WebApuUrl = response.ApiUrl;
-    }
-}
